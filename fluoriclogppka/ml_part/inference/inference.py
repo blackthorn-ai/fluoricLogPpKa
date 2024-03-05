@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 
 from fluoriclogppka.ml_part.constants import Target, Identificator
@@ -69,6 +70,8 @@ class Inference:
             model_path = PKA_AMINE_MODEL_PATH
         elif target_value == Target.pKa and "acid" in identificator.name.lower():
             model_path = PKA_ACID_MODEL_PATH
+        
+        model_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), model_path)
         
         return model_path
 
