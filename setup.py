@@ -10,7 +10,7 @@ setup(
   description = 'Tool for pKa, logP prediction',
   author = 'Blackthorn.ai',
   url = 'https://github.com/blackthorn-ai/fluoricLogPpKa',
-  download_url = 'https://github.com/blackthorn-ai/fluoricLogPpKa/dist/fluoriclogppka-0.1.0.tar.gz',
+  download_url = 'https://github.com/blackthorn-ai/fluoricLogPpKa/dist/fluoriclogppka-0.1.1.tar.gz',
   keywords = ['pKa', 'logP', 'tool'],
   
   install_requires=[ 
