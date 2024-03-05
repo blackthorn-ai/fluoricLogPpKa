@@ -1,0 +1,12 @@
+# unnecessary files
+.vscode
+build
+*.egg-info
+__pycache__
+
+# environments
+*venv
+*env
+
+# temporal files
+*temp*
