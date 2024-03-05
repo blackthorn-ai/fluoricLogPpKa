@@ -17,10 +17,12 @@ pip install fluoriclogppka
 ```
 import fluoriclogppka
 
-SMILES = "F[C@H]1C[C@H](F)CN(C1)C(=O)C1=CC=CC=C1"
+if __name__ == "__main__":
 
-inference = fluoriclogppka.Inference(SMILES=SMILES,
-                                     target_value=fluoriclogppka.Target.logP)
-    
-inference.predict()
+    SMILES = "F[C@H]1C[C@H](F)CN(C1)C(=O)C1=CC=CC=C1"
+
+    inference = fluoriclogppka.Inference(SMILES=SMILES,
+                                        target_value=fluoriclogppka.Target.logP)
+        
+    inference.predict()
 ```
