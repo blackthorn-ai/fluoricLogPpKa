@@ -5,7 +5,7 @@ setup(
   packages = find_packages(), 
   include_package_data = True,
 
-  version = '0.1.1',
+  version = '0.1.2',
   license = 'MIT',
   description = 'Tool for pKa, logP prediction',
   author = 'Blackthorn.ai',
@@ -27,7 +27,7 @@ setup(
           'pyarrow==15.0.0',
           'python-dateutil==2.8.2',
           'pytz==2024.1',
-          'rdkit==2023.9.5',
+          'rdkit==2022.9.5',
           'requests==2.31.0',
           'six==1.16.0',
           'tabulate==0.9.0',
