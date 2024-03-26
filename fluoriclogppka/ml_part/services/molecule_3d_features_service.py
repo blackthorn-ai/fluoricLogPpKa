@@ -15,6 +15,11 @@ import fluoriclogppka.ml_part.services.utils_pKa as utils_pKa
 import fluoriclogppka.ml_part.services.utils_logP as utils_logP
 
 class Molecule3DFeaturesService:
+    """
+    Class that represents a 3D molecule features.
+
+    This class provides functionality to obtain 3d molecules features. 
+    """
     def __init__(self, 
                  smiles: str,
                  target_value: Target,
@@ -89,6 +94,7 @@ class Molecule3DFeaturesService:
         
         Args:
             smiles (str): String representation of a molecule. 
+            conformers_limit (int): Max number of generated conformers for optimization.
             
         Returns:
             mol: Rdkit sanitized molecule with generated charges and multiple conformers.

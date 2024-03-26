@@ -19,7 +19,7 @@ class Featurizer:
     Attributes:
         SMILES (str): The SMILES string representing the molecule.
         target_value (Target): The target property to predict (pKa or logP).
-        row_from_enamine_dataset (pd.Series): A row from the Enamine Dataframe containing molecule information.
+        conformers_limit (int): Max number of generated conformers for optimization.
 
     Methods:
         extract_all_features(): Extracts all posible features for the molecule from 
@@ -38,7 +38,7 @@ class Featurizer:
         Args:
             SMILES (str): The SMILES string representing the molecule.
             target_value (Target): The target property to predict (pKa or logP).
-            row_from_enamine_dataset (pd.Series): A row from the Enamine dataset containing molecule information.
+            conformers_limit (int): Max number of generated conformers for optimization.
         """
         self.SMILES = SMILES
         self.target_value = target_value
