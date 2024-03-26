@@ -30,7 +30,7 @@ class Featurizer:
     def __init__(self, 
                  SMILES: str,
                  target_value: Target,
-                 conformers_limit: int
+                 conformers_limit: int = None
                  ) -> None:
         """
         Initialize the PrepareFluorineData object.

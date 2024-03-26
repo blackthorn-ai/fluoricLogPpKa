@@ -100,5 +100,5 @@ if __name__ == "__main__":
     inference = Inference(SMILES=SMILES,
                           target_value=Target.logP)
     
-    predicted_pKa = inference.predict()
-    print(predicted_pKa)
+    predicted_logP = inference.predict()
+    print(predicted_logP)

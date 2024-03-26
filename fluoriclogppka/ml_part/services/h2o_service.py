@@ -47,8 +47,9 @@ class H2OService:
         Returns:
             h2o_model: The initialized H2O model.
         """
-        h2o.init(verbose=False)
-        h2o.no_progress()
+        if not h2o.connection():
+            h2o.init(verbose=False)
+            h2o.no_progress()
 
         h2o_model = h2o.load_model(model_path)
 
