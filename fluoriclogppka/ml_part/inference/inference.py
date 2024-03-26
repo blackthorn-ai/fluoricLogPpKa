@@ -27,7 +27,8 @@ class Inference:
     def __init__(self, 
                  SMILES: str,
                  target_value: Target = Target.pKa,
-                 model_path: str = None
+                 model_path: str = None,
+                 is_fast_mode: bool = False
                  ) -> None:
         """
         Initialize the Inference object.
@@ -37,9 +38,15 @@ class Inference:
             target_value (Target): The target property to predict (pKa or logP).
             row_from_enamine_dataset: A row from the Enamine dataset containing molecule information.
             model_path (str, optional): The path to the pre-trained model. Defaults to None.
+            is_fast_mode (bool): Specifies whether to limit the number of conformers to speed up prediction.
         """
+        conformers_limit = None
+        if is_fast_mode:
+            conformers_limit = 50
+
         dataPrep = Featurizer(SMILES=SMILES,
-                              target_value=target_value,)
+                              target_value=target_value,
+                              conformers_limit=conformers_limit)
         self.features_for_predict = dataPrep.features_for_predict
 
         identificator = dataPrep.all_features_dict['identificator']
@@ -93,5 +100,5 @@ if __name__ == "__main__":
     inference = Inference(SMILES=SMILES,
                           target_value=Target.logP)
     
-    predicted_pKa = inference.predict()
-    print(predicted_pKa)
+    predicted_logP = inference.predict()
+    print(predicted_logP)

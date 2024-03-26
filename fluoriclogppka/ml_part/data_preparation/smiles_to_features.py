@@ -19,7 +19,7 @@ class Featurizer:
     Attributes:
         SMILES (str): The SMILES string representing the molecule.
         target_value (Target): The target property to predict (pKa or logP).
-        row_from_enamine_dataset (pd.Series): A row from the Enamine Dataframe containing molecule information.
+        conformers_limit (int): Max number of generated conformers for optimization.
 
     Methods:
         extract_all_features(): Extracts all posible features for the molecule from 
@@ -30,6 +30,7 @@ class Featurizer:
     def __init__(self, 
                  SMILES: str,
                  target_value: Target,
+                 conformers_limit: int = None
                  ) -> None:
         """
         Initialize the PrepareFluorineData object.
@@ -37,10 +38,11 @@ class Featurizer:
         Args:
             SMILES (str): The SMILES string representing the molecule.
             target_value (Target): The target property to predict (pKa or logP).
-            row_from_enamine_dataset (pd.Series): A row from the Enamine dataset containing molecule information.
+            conformers_limit (int): Max number of generated conformers for optimization.
         """
         self.SMILES = SMILES
         self.target_value = target_value
+        self.conformers_limit = conformers_limit
 
         if target_value == Target.pKa:
             self.required_features = PKA_FEATURES
@@ -69,7 +71,8 @@ class Featurizer:
         all_features.update(moleculeFeatures2dService.features_2d_dict)
 
         moleculeFeatures3dService = Molecule3DFeaturesService(smiles=self.SMILES,
-                                                              target_value=self.target_value)
+                                                              target_value=self.target_value,
+                                                              conformers_limit=self.conformers_limit)
         all_features.update(moleculeFeatures3dService.features_3d_dict)
 
         return all_features

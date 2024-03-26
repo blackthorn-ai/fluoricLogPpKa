@@ -15,14 +15,21 @@ import fluoriclogppka.ml_part.services.utils_pKa as utils_pKa
 import fluoriclogppka.ml_part.services.utils_logP as utils_logP
 
 class Molecule3DFeaturesService:
+    """
+    Class that represents a 3D molecule features.
+
+    This class provides functionality to obtain 3d molecules features. 
+    """
     def __init__(self, 
                  smiles: str,
-                 target_value: Target) -> None:
+                 target_value: Target,
+                 conformers_limit: int = None) -> None:
 
         self.target_value = target_value
         self.mol_2d = Chem.MolFromSmiles(smiles)
         self.smiles = smiles
-        self.mol = Molecule3DFeaturesService.prepare_molecule(smiles)
+        self.mol = Molecule3DFeaturesService.prepare_molecule(smiles=smiles,
+                                                              conformers_limit=conformers_limit)
         self.min_energy_conf_index, self.min_energy, self.mol = Molecule3DFeaturesService.find_conf_with_min_energy(self.mol)
         self.mol_optimized = self.mol
 
@@ -79,13 +86,15 @@ class Molecule3DFeaturesService:
         }
 
     @staticmethod
-    def prepare_molecule(smiles):
+    def prepare_molecule(smiles: str,
+                         conformers_limit: int = None):
         """
         Create rdkit 3d molecule from SMILES.
         Generate charges and molecule's conformers.
         
         Args:
             smiles (str): String representation of a molecule. 
+            conformers_limit (int): Max number of generated conformers for optimization.
             
         Returns:
             mol: Rdkit sanitized molecule with generated charges and multiple conformers.
@@ -94,10 +103,13 @@ class Molecule3DFeaturesService:
         mol = Chem.AddHs(mol)
         rdForceFieldHelpers.MMFFSanitizeMolecule(mol)
         
-        num_rotatable_bonds = Descriptors.NumRotatableBonds(mol)
-        amount_of_confs = pow(3, num_rotatable_bonds + 3)
-        AllChem.EmbedMultipleConfs(mol, numConfs=amount_of_confs, randomSeed=3407)
-
+        if conformers_limit is not None:
+            number_of_confs = conformers_limit
+        else:
+            num_rotatable_bonds = Descriptors.NumRotatableBonds(mol)
+            number_of_confs = pow(3, num_rotatable_bonds + 3)
+        
+        AllChem.EmbedMultipleConfs(mol, numConfs=number_of_confs, randomSeed=3407)
         rdPartialCharges.ComputeGasteigerCharges(mol)
 
         return mol
