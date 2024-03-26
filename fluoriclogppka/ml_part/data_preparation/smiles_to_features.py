@@ -30,6 +30,7 @@ class Featurizer:
     def __init__(self, 
                  SMILES: str,
                  target_value: Target,
+                 conformers_limit: int
                  ) -> None:
         """
         Initialize the PrepareFluorineData object.
@@ -41,6 +42,7 @@ class Featurizer:
         """
         self.SMILES = SMILES
         self.target_value = target_value
+        self.conformers_limit = conformers_limit
 
         if target_value == Target.pKa:
             self.required_features = PKA_FEATURES
@@ -69,7 +71,8 @@ class Featurizer:
         all_features.update(moleculeFeatures2dService.features_2d_dict)
 
         moleculeFeatures3dService = Molecule3DFeaturesService(smiles=self.SMILES,
-                                                              target_value=self.target_value)
+                                                              target_value=self.target_value,
+                                                              conformers_limit=self.conformers_limit)
         all_features.update(moleculeFeatures3dService.features_3d_dict)
 
         return all_features
