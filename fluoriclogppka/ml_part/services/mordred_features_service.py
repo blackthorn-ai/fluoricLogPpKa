@@ -1,6 +1,6 @@
 from rdkit import Chem
 from mordred import Calculator, descriptors
-from rdkit.Chem import Descriptors, AllChem, rdForceFieldHelpers, rdPartialCharges
+from rdkit.Chem import AllChem
 
 from fluoriclogppka.ml_part.services.utils import has_numbers
 
