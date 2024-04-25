@@ -6,9 +6,6 @@ from h2o.exceptions import H2ODependencyWarning
 
 warnings.filterwarnings("ignore", category=H2ODependencyWarning)
 
-from fluoriclogppka.ml_part.constants import Target
-from fluoriclogppka.ml_part.constants import LOGP_MODEL_PATH, PKA_AMINE_MODEL_PATH, PKA_ACID_MODEL_PATH
-
 class H2OService:
     """
     A service class for working with H2O models.

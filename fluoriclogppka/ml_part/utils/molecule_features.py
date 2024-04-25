@@ -1,6 +1,6 @@
 from rdkit import Chem
 
-from fluoriclogppka.ml_part.constants import Identificator, Target
+from fluoriclogppka.ml_part.constants import Target
 
 import fluoriclogppka.ml_part.services.utils_pKa as utils_pKa
 import fluoriclogppka.ml_part.services.utils_logP as utils_logP

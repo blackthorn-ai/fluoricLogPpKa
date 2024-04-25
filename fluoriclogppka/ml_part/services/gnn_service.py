@@ -1,7 +1,3 @@
-import pandas as pd
-
-from fluoriclogppka.ml_part.constants import Target
-from fluoriclogppka.ml_part.constants import LOGP_MODEL_PATH, PKA_AMINE_MODEL_PATH, PKA_ACID_MODEL_PATH
 from fluoriclogppka.ml_part.utils.gnn_models import PKaAcidicModel, PKaBasicModel, LogPModel
 
 class GNNService:

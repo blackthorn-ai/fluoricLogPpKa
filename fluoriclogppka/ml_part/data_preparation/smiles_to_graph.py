@@ -3,15 +3,7 @@ import pandas as pd
 from dgllife.utils.mol_to_graph import SMILESToBigraph
 from dgllife.utils import CanonicalAtomFeaturizer, CanonicalBondFeaturizer
 
-from fluoriclogppka.ml_part.exceptions import FeatureNotFoundError
-
 from fluoriclogppka.ml_part.constants import Target
-from fluoriclogppka.ml_part.constants import LOGP_FEATURES, PKA_FEATURES
-from fluoriclogppka.ml_part.constants import CONVERT_FEATURE_TO
-
-from fluoriclogppka.ml_part.services.molecule_3d_features_service import Molecule3DFeaturesService
-from fluoriclogppka.ml_part.services.molecule_2d_features_service import Molecule2DFeaturesService
-from fluoriclogppka.ml_part.services.mordred_features_service import MordredFeaturesService
 
 class Featurizer:
     """

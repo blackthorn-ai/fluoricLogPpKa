@@ -2,7 +2,6 @@ import dgl
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from torch.autograd import Variable
 
 from dgl import function as fn
 from dgl.nn.pytorch.softmax import edge_softmax

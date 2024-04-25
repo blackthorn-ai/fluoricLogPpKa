@@ -1,7 +1,6 @@
 from rdkit import Chem
 from rdkit.Chem import AllChem
 
-
 class Molecule2DFeaturesService:
     """
     Class that represents a 2D molecule features.
