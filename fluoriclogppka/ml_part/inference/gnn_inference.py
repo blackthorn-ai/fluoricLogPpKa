@@ -11,20 +11,20 @@ from fluoriclogppka.ml_part.utils.molecule_features import obtain_identificator
 
 class GNNInference:
     """
-    A class for making predictions using pre-trained models based on input molecule information.
+    A class for making predictions using Graph Neural Network (GNN) models.
 
-    This class prepares data for prediction and utilizes an H2OService to make predictions
-    using the appropriate pre-trained model.
+    This class allows for making predictions using GNN models to predict pKa or logP values
+    based on molecular structures.
 
     Attributes:
         SMILES (str): The SMILES string representing the molecule.
         target_value (Target): The target property to predict (pKa or logP).
-        row_from_enamine_dataset: A row from the Enamine dataset containing molecule information.
-        model_path (str): The path to the pre-trained model.
+        model_path (str): The path to the pre-trained model file.
 
     Methods:
+        __init__(): Initializes the GNNInference object.
         best_model_path(): Determines the best model path based on the target value and molecule type.
-        predict(): Makes predictions using the loaded model.
+        predict(): Makes predictions using the loaded GNN model.
     """
     def __init__(self, 
                  SMILES: str,
@@ -37,9 +37,7 @@ class GNNInference:
         Args:
             SMILES (str): The SMILES string representing the molecule.
             target_value (Target): The target property to predict (pKa or logP).
-            row_from_enamine_dataset: A row from the Enamine dataset containing molecule information.
             model_path (str, optional): The path to the pre-trained model. Defaults to None.
-            is_fast_mode (bool): Specifies whether to limit the number of conformers to speed up prediction.
         """
 
         dataPrep = Featurizer(SMILES=SMILES,

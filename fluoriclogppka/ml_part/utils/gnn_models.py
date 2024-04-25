@@ -232,6 +232,23 @@ class GNNLayer(nn.Module):
 
 
 class Pka_acidic_view(nn.Module):
+    """
+    A neural network model for predicting pKa values of acidic compounds.
+
+    This model takes as input molecular graphs and predicts pKa values for each atom.
+
+    Attributes:
+        node_feat_size (int): The size of node features.
+        edge_feat_size (int): The size of edge features.
+        num_layers (int): The number of GNN layers.
+        graph_feat_size (int): The size of graph-level features.
+        output_size (int): The output size of the model.
+        dropout (float): The dropout rate.
+
+    Methods:
+        __init__(): Initializes the Pka_acidic_view object.
+        forward(): Defines the forward pass of the model.
+    """
     def __init__(self,
                  node_feat_size,
                  edge_feat_size,
@@ -239,6 +256,20 @@ class Pka_acidic_view(nn.Module):
                  graph_feat_size,
                  output_size,
                  dropout):
+        """
+        Initialize the Pka_acidic_view object.
+
+        Args:
+            node_feat_size (int): The size of node features.
+            edge_feat_size (int): The size of edge features.
+            num_layers (int): The number of GNN layers.
+            graph_feat_size (int): The size of graph-level features.
+            output_size (int): The output size of the model.
+            dropout (float): The dropout rate.
+
+        Returns:
+            None
+        """
         super(Pka_acidic_view,self).__init__()
 
         self.device = torch.device("cpu")
@@ -254,7 +285,19 @@ class Pka_acidic_view(nn.Module):
         )
 
     def forward(self, g, node_feats, edge_feats, get_node_weight=False):
+        """
+        Defines the forward pass of the model.
 
+        Args:
+            g (DGLGraph): The input molecular graph.
+            node_feats (tensor): Node features.
+            edge_feats (tensor): Edge features.
+            get_node_weight (bool): Whether to compute node weights.
+
+        Returns:
+            g_feats (tensor): Graph-level features.
+            atom_pka_out (list): Predicted pKa values for each atom.
+        """
         mask = torch.sum(g.ndata['h'][:,-4:],dim = 1) * (1 - g.ndata['h'][:,0])
         mask = 1/mask -1
         node_feats = self.init_context(g, node_feats, edge_feats)
@@ -271,7 +314,23 @@ class Pka_acidic_view(nn.Module):
 
 
 class Pka_basic_view(nn.Module):
+    """
+    A neural network model for predicting pKa values of basic compounds.
 
+    This model takes as input molecular graphs and predicts pKa values for each atom.
+
+    Attributes:
+        node_feat_size (int): The size of node features.
+        edge_feat_size (int): The size of edge features.
+        num_layers (int): The number of GNN layers.
+        graph_feat_size (int): The size of graph-level features.
+        output_size (int): The output size of the model.
+        dropout (float): The dropout rate.
+
+    Methods:
+        __init__(): Initializes the Pka_basic_view object.
+        forward(): Defines the forward pass of the model.
+    """
     def __init__(self,
                  node_feat_size,
                  edge_feat_size,
@@ -279,6 +338,20 @@ class Pka_basic_view(nn.Module):
                  graph_feat_size,
                  output_size,
                  dropout):
+        """
+        Initialize the Pka_basic_view object.
+
+        Args:
+            node_feat_size (int): The size of node features.
+            edge_feat_size (int): The size of edge features.
+            num_layers (int): The number of GNN layers.
+            graph_feat_size (int): The size of graph-level features.
+            output_size (int): The output size of the model.
+            dropout (float): The dropout rate.
+
+        Returns:
+            None
+        """
         super(Pka_basic_view,self).__init__()
 
         self.device = torch.device("cpu")
@@ -294,7 +367,19 @@ class Pka_basic_view(nn.Module):
         )
         
     def forward(self, g, node_feats, edge_feats, get_node_weight=False):
+        """
+        Defines the forward pass of the model.
 
+        Args:
+            g (DGLGraph): The input molecular graph.
+            node_feats (tensor): Node features.
+            edge_feats (tensor): Edge features.
+            get_node_weight (bool): Whether to compute node weights.
+
+        Returns:
+            g_feats (tensor): Graph-level features.
+            atom_pka_out (list): Predicted pKa values for each atom.
+        """
         mask = g.ndata['h'][:,1] * (1 - g.ndata['h'][:,61])
 
         mask = -1/mask +1
@@ -314,6 +399,19 @@ class Pka_basic_view(nn.Module):
         return g_feats, atom_pka_out.detach().cpu().numpy().tolist()
 
 class PKaAcidicModel:
+    """
+    A wrapper class for the pKa acidic prediction model.
+
+    This class provides methods for loading and using the pre-trained pKa acidic prediction model.
+
+    Attributes:
+        model (nn.Module): The pre-trained pKa acidic prediction model.
+
+    Methods:
+        __init__(): Initializes the PKaAcidicModel object.
+        eval(): Puts the model in evaluation mode.
+        predict(): Makes predictions using the loaded model.
+    """
     def __init__(self, 
                  model_path) -> None:
         self.model = load_pKa_acidic_model(model_path=model_path)
@@ -322,13 +420,34 @@ class PKaAcidicModel:
         self.model.eval()
 
     def predict(self, bg):
-        
+        """
+        Makes predictions using the loaded model.
+
+        Args:
+            bg (DGLGraph): The input molecular graph.
+
+        Returns:
+            prediction (float): The predicted pKa value.
+        """
         prediction, _ = self.model(bg, bg.ndata['h'], bg.edata['e'])
 
         return prediction.item()
 
 
 class PKaBasicModel:
+    """
+    A wrapper class for the pKa basic prediction model.
+
+    This class provides methods for loading and using the pre-trained pKa basic prediction model.
+
+    Attributes:
+        model (nn.Module): The pre-trained pKa basic prediction model.
+
+    Methods:
+        __init__(): Initializes the PKaBasicModel object.
+        eval(): Puts the model in evaluation mode.
+        predict(): Makes predictions using the loaded model.
+    """
     def __init__(self, 
                  model_path) -> None:
         self.model = load_pKa_basic_model(model_path=model_path)
@@ -337,13 +456,34 @@ class PKaBasicModel:
         self.model.eval()
 
     def predict(self, bg):
-        
+        """
+        Makes predictions using the loaded model.
+
+        Args:
+            bg (DGLGraph): The input molecular graph.
+
+        Returns:
+            prediction (float): The predicted pKa value.
+        """
         prediction, _ = self.model(bg, bg.ndata['h'], bg.edata['e'])
 
         return prediction.item()
 
 
 class LogPModel:
+    """
+    A wrapper class for the logP prediction model.
+
+    This class provides methods for loading and using the pre-trained logP prediction model.
+
+    Attributes:
+        model (nn.Module): The pre-trained logP prediction model.
+
+    Methods:
+        __init__(): Initializes the LogPModel object.
+        eval(): Puts the model in evaluation mode.
+        predict(): Makes predictions using the loaded model.
+    """
     def __init__(self, 
                  model_path) -> None:
         self.model = load_logP_model(model_path=model_path)
@@ -352,40 +492,78 @@ class LogPModel:
         self.model.eval()
 
     def predict(self, bg):
-        
+        """
+        Makes predictions using the loaded model.
+
+        Args:
+            bg (DGLGraph): The input molecular graph.
+
+        Returns:
+            prediction (float): The predicted logP value.
+        """
         prediction = self.model(bg, bg.ndata['h'])
 
         return prediction.item()
 
 
 def load_pKa_acidic_model(model_path):
-    pka1_model = Pka_acidic_view(
+    """
+    Load the pre-trained pKa acidic prediction model.
+
+    Args:
+        model_path (str): The path to the pre-trained model file.
+
+    Returns:
+        pka_model (Pka_acidic_view): The loaded pKa acidic prediction model.
+    """
+    pka_model = Pka_acidic_view(
         node_feat_size = 74,
         edge_feat_size = 12,
         output_size = 1,
         num_layers= 6,
         graph_feat_size=200,
         dropout=0).to('cpu')
-    pka1_model.load_state_dict(torch.load(model_path,map_location='cpu'))
-    return pka1_model
+    
+    pka_model.load_state_dict(torch.load(model_path,map_location='cpu'))
+    
+    return pka_model
 
 
 def load_pKa_basic_model(model_path):
-    pka2_model = Pka_basic_view(
+    """
+    Load the pre-trained pKa basic prediction model.
+
+    Args:
+        model_path (str): The path to the pre-trained model file.
+
+    Returns:
+        pka2_model (Pka_basic_view): The loaded pKa basic prediction model.
+    """
+    pka_model = Pka_basic_view(
         node_feat_size = 74,
         edge_feat_size = 12,
         output_size = 1,
         num_layers= 6,
         graph_feat_size=200,
         dropout=0).to('cpu')
-    pka2_model.load_state_dict(torch.load(model_path, map_location='cpu'))
-    return pka2_model
+    
+    pka_model.load_state_dict(torch.load(model_path, map_location='cpu'))
+    
+    return pka_model
 
 def load_logP_model(model_path):
+    """
+    Load the pre-trained logP prediction model.
 
-    dropout = 0.28857669330071006
-    dropout = 0
+    Args:
+        model_path (str): The path to the pre-trained model file.
+
+    Returns:
+        logP_model (GCNPredictor): The loaded logP prediction model.
+    """
+    dropout = 0.0
     num_gnn_layers = 2
+    
     logP_model = GCNPredictor(in_feats=74,
                         hidden_feats=[128] * num_gnn_layers,
                         activation=[F.relu] * num_gnn_layers,
@@ -396,7 +574,6 @@ def load_logP_model(model_path):
                         predictor_dropout=dropout,
                         n_tasks=1).to('cpu')
 
-    # logP_model = GCNPredictor(in_feats=74)
     logP_model.load_state_dict(torch.load(model_path, map_location='cpu'))
 
     return logP_model

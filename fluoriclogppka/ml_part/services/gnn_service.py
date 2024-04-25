@@ -6,26 +6,29 @@ from fluoriclogppka.ml_part.utils.gnn_models import PKaAcidicModel, PKaBasicMode
 
 class GNNService:
     """
-    A service class for working with H2O models.
+    A class for making predictions using Graph Neural Network (GNN) models.
 
-    This class provides methods for initializing an H2O model, converting data in 
-    specific h2o format for prediction, and making predictions using the model.
+    This class provides methods to load and use pre-trained GNN models for predicting
+    various molecular properties such as pKa and logP.
 
     Attributes:
-        model_path (str): The path to the pre-trained H2O model.
+        model_path (str): The path to the pre-trained GNN model file.
 
     Methods:
-        _model_init(): Initializes the H2O model from the specified path.
-        _prepare_h2o_data(): Prepares H2O data frame from a dictionary of features.
-        predict(): Makes predictions using the loaded model.
+        __init__(): Initializes the GNNService object.
+        _model_init(): Initializes the specified GNN model based on the provided model path.
+        predict(): Makes predictions using the loaded GNN model.
     """
     def __init__(self,
                  model_path: str):
         """
-        Initialize the H2OService object.
+        Initialize the GNNService object.
 
         Args:
-            model_path (str): The path to the pre-trained H2O model.
+            model_path (str): The path to the pre-trained GNN model file.
+
+        Returns:
+            None
         """
         self.model_path = model_path
         
@@ -34,13 +37,13 @@ class GNNService:
     @staticmethod
     def _model_init(model_path):
         """
-        Initialize the H2O model from the specified path.
+        Initializes the specified GNN model based on the provided model path.
 
         Args:
-            model_path (str): The path to the pre-trained H2O model.
+            model_path (str): The path to the pre-trained GNN model file.
 
         Returns:
-            h2o_model: The initialized H2O model.
+            model: The initialized GNN model.
         """
         if 'acid' in model_path.lower():
             model = PKaAcidicModel(model_path=model_path)
@@ -56,13 +59,13 @@ class GNNService:
     def predict(self,
                 bg):
         """
-        Make predictions using the loaded model.
+        Make predictions using the loaded GNN model.
 
         Args:
-            bg (Dgllife graph object): A dictionary containing features.
+            bg (DGLGraph): The graph representation of the molecule.
 
         Returns:
-            prediction (float): Predicted target value using dgllife gnn model.
+            prediction: The predicted molecular property.
         """
         self.model.eval()
 

@@ -15,32 +15,33 @@ from fluoriclogppka.ml_part.services.mordred_features_service import MordredFeat
 
 class Featurizer:
     """
-    A class for preparing data for chemical property prediction.
+    A class for featurizing molecules based on their SMILES representation.
 
-    This class prepares data from Enamine dataset for predicting chemical properties such as pKa or logP.
+    This class provides methods to featurize molecules for different target properties,
+    such as pKa or logP.
 
     Attributes:
         SMILES (str): The SMILES string representing the molecule.
         target_value (Target): The target property to predict (pKa or logP).
-        conformers_limit (int): Max number of generated conformers for optimization.
 
     Methods:
-        extract_all_features(): Extracts all posible features for the molecule from 
-            rdkit, mordred and our dataset.
-        extract_required_features(): Extracts only the required features for predicting pKa or LogP.
-        prepare_features_for_model(): Converts string molecule features to int. 
+        __init__(): Initializes the Featurizer object.
+        prepare_pKa_graph(): Prepares a graph representation of the molecule for pKa prediction.
+        prepare_logP_graph(): Prepares a graph representation of the molecule for logP prediction.
     """
     def __init__(self, 
                  SMILES: str,
                  target_value: Target
                  ) -> None:
         """
-        Initialize the PrepareFluorineData object.
+        Initialize the Featurizer object.
 
         Args:
             SMILES (str): The SMILES string representing the molecule.
             target_value (Target): The target property to predict (pKa or logP).
-            conformers_limit (int): Max number of generated conformers for optimization.
+
+        Returns:
+            None
         """
         self.SMILES = SMILES
         self.target_value = target_value
@@ -53,10 +54,13 @@ class Featurizer:
     @staticmethod
     def prepare_pKa_graph(SMILES):
         """
-        Extracts all posible features for the molecule from rdkit, mordred and our dataset.
+        Prepares a graph representation of the molecule for pKa prediction.
+
+        Args:
+            SMILES (str): The SMILES string representing the molecule.
 
         Returns:
-            dict: A dictionary containing all extracted features from rdkit, mordred and Enamine dataset.
+            graph (DGLGraph): The graph representation of the molecule.
         """
         smiles_to_graph = SMILESToBigraph(node_featurizer=CanonicalAtomFeaturizer(),
                                           edge_featurizer=CanonicalBondFeaturizer())
@@ -66,10 +70,13 @@ class Featurizer:
     @staticmethod
     def prepare_logP_graph(SMILES):
         """
-        Extracts all posible features for the molecule from rdkit, mordred and our dataset.
+        Prepares a graph representation of the molecule for logP prediction.
+
+        Args:
+            SMILES (str): The SMILES string representing the molecule.
 
         Returns:
-            dict: A dictionary containing all extracted features from rdkit, mordred and Enamine dataset.
+            graph (DGLGraph): The graph representation of the molecule.
         """
         smiles_to_graph = SMILESToBigraph(add_self_loop=True,
                                           node_featurizer=CanonicalAtomFeaturizer(),
