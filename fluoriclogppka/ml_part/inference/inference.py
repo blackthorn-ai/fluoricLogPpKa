@@ -15,7 +15,7 @@ class Inference:
         target_value (Target): The target property to predict (default is pKa).
         model_path (str): The path to the pre-trained model file.
         model_type (ModelType): The type of the inference model (default is H2O).
-        is_fast_model (bool): A flag indicating whether to use a fast mode for prediction.
+        is_fast_mode (bool): A flag indicating whether to use a fast mode for prediction.
 
     Methods:
         __init__(): Initializes the Inference object.
@@ -26,7 +26,7 @@ class Inference:
                  target_value: Target = Target.pKa,
                  model_path: str = None,
                  model_type: ModelType = ModelType.h2o,
-                 is_fast_model: bool = False
+                 is_fast_mode: bool = False
                  ) -> None:
         """
         Initialize the Inference object.
@@ -36,7 +36,7 @@ class Inference:
             target_value (Target): The target property to predict (default is pKa).
             model_path (str, optional): The path to the pre-trained model file.
             model_type (ModelType, optional): The type of the inference model (default is H2O).
-            is_fast_model (bool, optional): A flag indicating whether to use a fast mode for prediction.
+            is_fast_mode (bool, optional): A flag indicating whether to use a fast mode for prediction.
 
         Returns:
             None
@@ -49,7 +49,7 @@ class Inference:
             self.inference = H2OInference(SMILES=SMILES,
                                           model_path=model_path,
                                           target_value=target_value,
-                                          is_fast_mode=is_fast_model)
+                                          is_fast_mode=is_fast_mode)
             
     def predict(self):
         """

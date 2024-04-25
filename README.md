@@ -12,7 +12,7 @@ FluoricLogPpKa requires installed Java to run.
 ```sh
 pip install fluoriclogppka
 ```
-## How to use
+## How to use to predict logP:
 
 ```
 import fluoriclogppka
@@ -22,7 +22,38 @@ if __name__ == "__main__":
     SMILES = "F[C@H]1C[C@H](F)CN(C1)C(=O)C1=CC=CC=C1"
 
     inference = fluoriclogppka.Inference(SMILES=SMILES,
-                                        target_value=fluoriclogppka.Target.logP)
+                                         target_value=fluoriclogppka.Target.logP)
+        
+    inference.predict()
+```
+
+## How to use to predict pKa:
+
+```
+import fluoriclogppka
+
+if __name__ == "__main__":
+
+    SMILES = "FC1(F)CC(C(O)=O)C1"
+
+    inference = fluoriclogppka.Inference(SMILES=SMILES,
+                                         target_value=fluoriclogppka.Target.pKa)
+        
+    inference.predict()
+```
+
+## Experimental tool for prediction (GNN models):
+
+```
+import fluoriclogppka
+
+if __name__ == "__main__":
+
+    SMILES = "FC1(F)CC(C(O)=O)C1"
+
+    inference = fluoriclogppka.Inference(SMILES=SMILES,
+                                         target_value=fluoriclogppka.Target.pKa,
+                                         model_type=fluoriclogppka.ModelType.gnn)
         
     inference.predict()
 ```
