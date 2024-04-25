@@ -7,6 +7,10 @@ class Target(Enum):
     pKa = 'pKa'
     logP = 'logP'
 
+class ModelType(Enum):
+    gnn = 'gnn'
+    h2o = 'h2o'
+
 class Identificator(Enum):
     carboxilic_acid = 'carboxilic_acid'
     primary_amine = 'primary_amine'
@@ -18,18 +22,29 @@ LOGP_FEATURES = ['f_freedom', 'PPSA5', 'mol_num_cycles', 'nFRing', 'nF', 'identi
                  'WPSA5', 'TASA', 'f_to_fg', 'avg_atoms_in_cycle', 'nFHRing',
                  'chirality']
 
-MODELS_PATH = os.path.join('fluoriclogppka', 'ml_part', 'models_weights', 'h2o_models')
-
-LOGP_MODEL_PATH = os.path.join(MODELS_PATH, 'logP', 'all_molecules(without_angle_feature)_without_outliers', 'StackedEnsemble_BestOfFamily_3_AutoML_2_20240208_214951')
-
 PKA_FEATURES = ['RPCS', 'PBF', 'mol_weight', 'dipole_moment', 'PPSA5',
                 'avg_atoms_in_cycle', 'nHRing', 'cis/trans', 'FPSA3', 'nF', 'chirality',
                 'sasa', 'PNSA5', 'GeomShapeIndex', 'TASA', 'mol_num_cycles',
                 'f_freedom', 'nFRing', 'identificator', 'nO', 'nARing', 'nC', 'nFHRing',
                 'f_to_fg']
 
-PKA_AMINE_MODEL_PATH = os.path.join(MODELS_PATH, 'pKa', 'amine_molecules(without_angle_feature)_without_outliers', 'StackedEnsemble_BestOfFamily_5_AutoML_3_20240213_92029')
-PKA_ACID_MODEL_PATH = os.path.join(MODELS_PATH, 'pKa', 'acid_molecules(without_angle_feature)_without_outliers', 'DeepLearning_grid_2_AutoML_4_20240213_102321_model_43')
+MODELS_PATH = os.path.join('fluoriclogppka', 'ml_part', 'models_weights')
+
+# H2O
+H2O_MODELS_PATH = os.path.join(MODELS_PATH, 'h2o_models')
+
+LOGP_MODEL_PATH = os.path.join(H2O_MODELS_PATH, 'logP', 'all_molecules(without_angle_feature)_without_outliers', 'StackedEnsemble_BestOfFamily_3_AutoML_2_20240208_214951')
+
+PKA_AMINE_MODEL_PATH = os.path.join(H2O_MODELS_PATH, 'pKa', 'amine_molecules(without_angle_feature)_without_outliers', 'StackedEnsemble_BestOfFamily_5_AutoML_3_20240213_92029')
+PKA_ACID_MODEL_PATH = os.path.join(H2O_MODELS_PATH, 'pKa', 'acid_molecules(without_angle_feature)_without_outliers', 'DeepLearning_grid_2_AutoML_4_20240213_102321_model_43')
+
+# GNN
+GNN_MODELS_PATH = os.path.join(MODELS_PATH, 'gnn_models')
+
+GNN_LOGP_MODEL_PATH = os.path.join(GNN_MODELS_PATH, 'logP', 'GCNPredictor_logP_best_loss.pth')
+
+GNN_PKA_AMINE_MODEL_PATH = os.path.join(GNN_MODELS_PATH, 'pKa', 'amine_molecules(without_angle_feature)_without_outliers', 'basic_best_loss_glamorous-totem-39.pkl')
+GNN_PKA_ACID_MODEL_PATH = os.path.join(GNN_MODELS_PATH, 'pKa', 'acid_molecules(without_angle_feature)_without_outliers', 'acid_best_loss_blooming-deluge-52.pkl')
 
 FUNCTIONAL_GROUP_TO_SMILES = {
             "CF3": "CC(F)(F)F", 
