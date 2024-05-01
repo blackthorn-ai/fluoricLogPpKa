@@ -560,6 +560,7 @@ def load_logP_model(model_path):
     Returns:
         logP_model (GCNPredictor): The loaded logP prediction model.
     """
+
     dropout = 0.0690767663743611
     num_gnn_layers = 2
     
