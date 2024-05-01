@@ -41,7 +41,7 @@ PKA_ACID_MODEL_PATH = os.path.join(H2O_MODELS_PATH, 'pKa', 'acid_molecules(witho
 # GNN
 GNN_MODELS_PATH = os.path.join(MODELS_PATH, 'gnn_models')
 
-GNN_LOGP_MODEL_PATH = os.path.join(GNN_MODELS_PATH, 'logP', 'GCNPredictor_logP_best_loss.pth')
+GNN_LOGP_MODEL_PATH = os.path.join(GNN_MODELS_PATH, 'logP', 'GNN_attentivefp_model_logP.pth')
 
 GNN_PKA_AMINE_MODEL_PATH = os.path.join(GNN_MODELS_PATH, 'pKa', 'amine_molecules(without_angle_feature)_without_outliers', 'basic_best_loss_glamorous-totem-39.pkl')
 GNN_PKA_ACID_MODEL_PATH = os.path.join(GNN_MODELS_PATH, 'pKa', 'acid_molecules(without_angle_feature)_without_outliers', 'acid_best_loss_blooming-deluge-52.pkl')

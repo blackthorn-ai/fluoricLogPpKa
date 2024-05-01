@@ -2,6 +2,7 @@ import pandas as pd
 
 from dgllife.utils.mol_to_graph import SMILESToBigraph
 from dgllife.utils import CanonicalAtomFeaturizer, CanonicalBondFeaturizer
+from dgllife.utils import AttentiveFPAtomFeaturizer, AttentiveFPBondFeaturizer
 
 from fluoriclogppka.ml_part.constants import Target
 
@@ -71,7 +72,7 @@ class Featurizer:
             graph (DGLGraph): The graph representation of the molecule.
         """
         smiles_to_graph = SMILESToBigraph(add_self_loop=True,
-                                          node_featurizer=CanonicalAtomFeaturizer(),
-                                          edge_featurizer=CanonicalBondFeaturizer(self_loop=True))
+                                          node_featurizer=AttentiveFPAtomFeaturizer(),
+                                          edge_featurizer=AttentiveFPBondFeaturizer(self_loop=True))
 
         return smiles_to_graph(SMILES)

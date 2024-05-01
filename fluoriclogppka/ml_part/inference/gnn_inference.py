@@ -52,7 +52,7 @@ class GNNInference:
         self.model_path = model_path
         if model_path is None:
             self.model_path = GNNInference.best_model_path(target_value=target_value,
-                                                        identificator=identificator)
+                                                           identificator=identificator)
         
         self._gnnService = GNNService(self.model_path)
     
