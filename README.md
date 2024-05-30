@@ -42,7 +42,7 @@ if __name__ == "__main__":
     inference.predict()
 ```
 
-## Experimental tool for prediction (GNN models):
+## Experimental tool for prediction (H2O models):
 
 ```
 import fluoriclogppka
@@ -53,7 +53,7 @@ if __name__ == "__main__":
 
     inference = fluoriclogppka.Inference(SMILES=SMILES,
                                          target_value=fluoriclogppka.Target.pKa,
-                                         model_type=fluoriclogppka.ModelType.gnn)
+                                         model_type=fluoriclogppka.ModelType.h2o)
         
     inference.predict()
 ```
