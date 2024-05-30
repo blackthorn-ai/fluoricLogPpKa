@@ -25,7 +25,7 @@ class Inference:
                  SMILES: str,
                  target_value: Target = Target.pKa,
                  model_path: str = None,
-                 model_type: ModelType = ModelType.h2o,
+                 model_type: ModelType = ModelType.gnn,
                  is_fast_mode: bool = False
                  ) -> None:
         """
@@ -35,7 +35,7 @@ class Inference:
             SMILES (str): The SMILES string representing the molecule.
             target_value (Target): The target property to predict (default is pKa).
             model_path (str, optional): The path to the pre-trained model file.
-            model_type (ModelType, optional): The type of the inference model (default is H2O).
+            model_type (ModelType, optional): The type of the inference model (default is GNN).
             is_fast_mode (bool, optional): A flag indicating whether to use a fast mode for prediction.
 
         Returns:
