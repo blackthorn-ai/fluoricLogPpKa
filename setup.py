@@ -5,12 +5,12 @@ setup(
   packages = find_packages(), 
   include_package_data = True,
 
-  version = '0.2.5',
+  version = '0.2.6',
   license = 'MIT',
   description = 'Tool for pKa, logP prediction',
   author = 'Blackthorn.ai',
   url = 'https://github.com/blackthorn-ai/fluoricLogPpKa',
-  download_url = 'https://github.com/blackthorn-ai/fluoricLogPpKa/dist/fluoriclogppka-0.2.5.tar.gz',
+  download_url = 'https://github.com/blackthorn-ai/fluoricLogPpKa/dist/fluoriclogppka-0.2.6.tar.gz',
   keywords = ['pKa', 'logP', 'tool'],
   
   install_requires=[ 
@@ -22,7 +22,7 @@ setup(
           'mordred==1.2.0',
           'networkx==2.8.8',
           'numpy==1.26.4',
-          'pandas==2.2.0',
+          'pandas>=2.2.0',
           'pillow==10.2.0',
           'pyarrow==15.0.0',
           'python-dateutil==2.8.2',
@@ -33,8 +33,8 @@ setup(
           'tabulate==0.9.0',
           'tzdata==2024.1',
           'urllib3==2.2.1',
-          'torch==2.2.2',
-          'torchvision==0.17.2',
+          'torch>=2.0.0',
+          'torchvision>=0.15.1',
           'dgl',
           'dgllife==0.3.2'
       ],
