@@ -22,7 +22,10 @@ setup(
           'mordred==1.2.0',
           'networkx==2.8.8',
           'numpy==1.26.4',
+          'openpyxl==3.1.4',
+          'packaging==24.0',
           'pandas>=2.2.0',
+          'pillow==9.2.0',
           'python-dateutil==2.8.2',
           'pytz==2024.1',
           'rdkit==2022.9.5',
@@ -31,9 +34,9 @@ setup(
           'tabulate==0.9.0',
           'tzdata==2024.1',
           'urllib3==2.2.1',
-          'torch>=2.0.0',
-          'torchvision>=0.15.1',
-          'dgl',
+          'torch==2.0.0',
+          'torchvision==0.15.1',
+          'dgl==1.1.2',
           'dgllife==0.3.2'
       ],
   classifiers=[
