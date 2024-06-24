@@ -25,7 +25,7 @@ setup(
           'openpyxl==3.1.4',
           'packaging==24.0',
           'pandas>=2.2.0',
-          'pillow==9.2.0',
+          'pillow>=9.2.0',
           'python-dateutil==2.8.2',
           'pytz==2024.1',
           'rdkit==2022.9.5',
